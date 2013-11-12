@@ -1,7 +1,7 @@
-data_structure_rc
+dsrc
 =================
 
-Simple and abstract APIs for data structure
+###Simple and abstract APIs for data structure
 
 #### TODO:
 - Improve Makefile(hardcode makefile)
@@ -9,7 +9,8 @@ Simple and abstract APIs for data structure
 - Graphs 
 - Fibonacci tree
 - Priority queue
+- Etc.
 
 
 ###### BUGS:
-- Infinite loop on **bt_delete_node ** function
+- Infinite loop on **bt_delete_node** function

@@ -137,48 +137,51 @@ bt_size(node_t* root)
 
 // XXX: BUG, infinite loop
 node_t*
-bt_delete_node(node_t *root, void *data,
+bt_delete_node(node_t **root, void *data,
 		int (*cmp_function)(void*, void*), void (*free_data)(void*))
 {
-	if(root == NULL)
+	if(*root == NULL)
 		return NULL;
 
 	node_t* cursor;
 	int x = 0;
 
-	x = cmp_function(DATA(root), data);
-	if(x < 0)
-		SET_LEFT_CHILD(root,bt_delete_node(LEFT_CHILD(root), data, cmp_function, free_data));
-	else if(x > 0)
-		SET_RIGTH_CHILD(root,bt_delete_node(RIGHT_CHILD(root), data, cmp_function, free_data));
+	x = cmp_function(data, DATA(*root));
+	if( x < 0)
+		return bt_delete_node( &LEFT_CHILD(*root), cmp_function, free_data);
+	if( x > 0)
+		return bt_delete_node( &RIGHT_CHILD(*root), cmp_function, free_data);
+		
 	else{
-		if(LEFT_CHILD(root) == NULL){
-			cursor = RIGHT_CHILD(root);
-			free_node(root, free_data);
-			root = cursor;
-		}
-		else if(RIGHT_CHILD(root) == NULL){
-			cursor = LEFT_CHILD(root);
-			free_node(root, free_data);
-			root = cursor;
-		}
-		else{
-			cursor = RIGHT_CHILD(root);
-			node_t *parent = NULL;
-			while(LEFT_CHILD(cursor) != NULL){
-				parent = cursor;
-				cursor = LEFT_CHILD(root);
-			}
-			SET_DATA(root,DATA(cursor));
-			if(parent != NULL )
-				SET_LEFT_CHILD(parent,bt_delete_node(LEFT_CHILD(parent),DATA(LEFT_CHILD(parent)), cmp_function, free_data) );
-			else
-				SET_RIGTH_CHILD(root,bt_delete_node(RIGHT_CHILD(root), DATA(RIGHT_CHILD(root)), cmp_function, free_data) );
-		}
+
+
 	}
-	return root;
+	
 }
 
+node_t*
+bt_root_delete(node_t **root, void *data,
+		int (*cmp_function)(void*, void*), void (*free_data)(void*))
+{
+	int x = 0;
+	node_t *tmp = *root;
+	if ( LEFT_CHILD(*root) == NULL ){
+		//root = RIGHT_CHILD(*root);
+		SET_RIGTH_CHILD(*root,
+		free_node(tmp, free_data);	
+	}
+	else if( RIGHT_CHILD(*root) == NULL){
+		root = RIGHT_CHILD(*root);
+		free_node(tmp, free_data);
+	}
+	else{
+		tmp = LEFT_CHILD(*root);
+		while(RIGHT_CHILD(tmp) != NULL)
+			tmp = RIGHT_CHILD
+
+	}
+		
+}
 
 int
 bt_free(btree_t* tree)

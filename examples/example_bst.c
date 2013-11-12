@@ -79,7 +79,7 @@ main(int argc, char **argv)
 
 	// XXX: BUG, infinite loop
 	data_to_search = 15;
-	tree->root =  bt_delete_node(tree->root, &data_to_search, tree->compare, tree->free_data); 
+	tree->root =  bt_delete_node(&tree->root, &data_to_search, tree->compare, tree->free_data); 
 	bt_inorden_walk(tree->root, print_int_data);
 
 
