@@ -24,7 +24,9 @@ free_node(node_t *node, void (*free_data)(void*) )
 #ifdef DEBUG
     fprintf(stdout,"Node cleared [%p]\n", node);
 #endif
-	free_data(node->data);
-    free(node);
+    if(node->data != NULL)
+        free_data(node->data);
+    if(node != NULL)
+        free(node);
 }
 

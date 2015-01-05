@@ -161,13 +161,13 @@ bt_delete_node(node_t **root, void *data,
 
 node_t*
 bt_root_delete(node_t **root, void *data,
-		int (*cmp_function)(void*, void*), void (*free_data)(void*))
+        int (*cmp_function)(void*, void*), void (*free_data)(void*))
 {
 	int x = 0;
 	node_t *tmp = *root;
 	if ( LEFT_CHILD(*root) == NULL ){
-		//root = RIGHT_CHILD(*root);
-		SET_RIGTH_CHILD(*root,
+		root = RIGHT_CHILD(*root);
+		//SET_RIGTH_CHILD(*root,
 		free_node(tmp, free_data);	
 	}
 	else if( RIGHT_CHILD(*root) == NULL){
